@@ -1,6 +1,8 @@
 import React from 'react';
-import './cal.css'
-import { Fill } from '../fill/fill'
+import './cal.css';
+import { Fill } from '../fill/fill';
+import { Table } from '../table/table';
+import { TableData } from '../table/tabledata'
 
 
 const minimumPriceMovement = {
@@ -33,6 +35,7 @@ const minimumPriceMovement = {
 export class Cal extends React.Component {
   constructor(props) {
     super(props);
+    this.tableData = [];
     this.state = {
       totalValue: 200000,
       stopLossValue: 1000,
@@ -40,13 +43,15 @@ export class Cal extends React.Component {
       strikePrice: '',
       stopLostPrice: '',
       minimumPriceMovementValue: 10,
+      append:'',
     }
     this.setTotal = this.setTotal.bind(this);
     this.setStopLoss = this.setStopLoss.bind(this);
     this.setProducts = this.setProducts.bind(this);
     this.setLossValue = this.setLossValue.bind(this);
     this.setStrikePrice = this.setStrikePrice.bind(this);
-    this.calculation = this.calculation.bind(this)
+    this.calculation = this.calculation.bind(this);
+    this.hanldeTableData = this.hanldeTableData.bind(this)
   }
   
   //通过fill.js 传输产品，单笔价值量，止损止盈和单笔亏损
@@ -79,7 +84,28 @@ export class Cal extends React.Component {
     let lossvalue =  Math.abs(this.state.strikePrice - this.state.stopLostPrice);
     let lossVolume = Math.floor(this.state.stopLossValue / (lossvalue*this.state.minimumPriceMovementValue));
 
-    return <div>手数：{volume = totalVolume > lossVolume ? lossVolume : totalVolume}</div>
+    return volume = totalVolume > lossVolume ? lossVolume : totalVolume
+  }
+
+  getTime() {
+    let date = new Date();
+    let hour = date.getHours();
+    let min = date.getMinutes();
+    let sec = date.getSeconds();
+    if (hour < 10) {
+      hour = `0${hour}`;
+    } else if (min < 10) {
+      min = `0${min}`;
+    } else if (sec < 10) {
+      sec = `0${sec}`;
+    }
+
+    return `${hour}:${min}:${sec}`
+  }
+
+  hanldeTableData() {
+    this.tableData.push(<TableData time={this.getTime()} products={this.state.futuresProducts} volume={this.calculation()} strikePrice={this.state.strikePrice} stopLossPrice={this.state.stopLostPrice}/>);
+    this.setState({append: this.tableData})
   }
 
 
@@ -87,7 +113,11 @@ export class Cal extends React.Component {
     return(
       <div>
         <Fill  total={this.setTotal} loss={this.setLossValue} products={this.setProducts} stopLoss={this.setStopLoss} strikePrice={this.setStrikePrice} />
-        {this.calculation()}
+        <input  type="submit" className="button" onClick={this.hanldeTableData}  value="提交" />
+        <Table />
+        <div>
+        {this.tableData}
+        </div>
       </div>
     )
   }

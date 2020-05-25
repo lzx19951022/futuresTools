@@ -108,8 +108,16 @@ export class Cal extends React.Component {
   
   //点击提交时渲染结果数据，采用了push方法给数组arry增加数据的方式。
   hanldeTableData() {
+    if (this.state.futuresProducts != '' && this.state.strikePrice != '' && this.state.stopLostPrice != '') {
     this.tableData.unshift(<TableData time={this.getTime()} products={this.state.futuresProducts} volume={this.calculation()} strikePrice={this.state.strikePrice} stopLossPrice={this.state.stopLostPrice}/>);
     this.setState({append: this.tableData})
+    } else if (this.state.futuresProducts === ''){
+      alert('请填写期货品种')
+    } else if (this.state.strikePrice === '') {
+      alert('请填写进场位')
+    } else if (this.state.stopLostPrice === '') {
+      alert('请填写止损价')
+    }
   }
 
 

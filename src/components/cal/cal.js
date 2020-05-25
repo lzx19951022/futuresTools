@@ -4,7 +4,7 @@ import { Fill } from '../fill/fill';
 import { Table } from '../table/table';
 import { TableData } from '../table/tabledata'
 
-
+//各个产品单手的吨数
 const minimumPriceMovement = {
   螺纹: 10,
   热卷: 10,
@@ -77,7 +77,9 @@ export class Cal extends React.Component {
   setStrikePrice(e) {
     this.setState({strikePrice: e})
   };
-  
+
+
+  //计算出最终下单的手数
   calculation() {
     let volume;
     let totalVolume = Math.floor(this.state.totalValue/(this.state.minimumPriceMovementValue * this.state.strikePrice));
@@ -86,7 +88,8 @@ export class Cal extends React.Component {
 
     return volume = totalVolume > lossVolume ? lossVolume : totalVolume
   }
-
+  
+  //获取提交计算时的时间
   getTime() {
     let date = new Date();
     let hour = date.getHours();
@@ -102,9 +105,10 @@ export class Cal extends React.Component {
 
     return `${hour}:${min}:${sec}`
   }
-
+  
+  //点击提交时渲染结果数据，采用了push方法给数组arry增加数据的方式。
   hanldeTableData() {
-    this.tableData.push(<TableData time={this.getTime()} products={this.state.futuresProducts} volume={this.calculation()} strikePrice={this.state.strikePrice} stopLossPrice={this.state.stopLostPrice}/>);
+    this.tableData.unshift(<TableData time={this.getTime()} products={this.state.futuresProducts} volume={this.calculation()} strikePrice={this.state.strikePrice} stopLossPrice={this.state.stopLostPrice}/>);
     this.setState({append: this.tableData})
   }
 

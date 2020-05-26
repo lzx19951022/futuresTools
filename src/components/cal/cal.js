@@ -37,13 +37,13 @@ export class Cal extends React.Component {
     super(props);
     this.tableData = [];
     this.state = {
+      setValue:[],
       totalValue: 200000,
       stopLossValue: 1000,
       futuresProducts:'',
       strikePrice: '',
       stopLostPrice: '',
-      minimumPriceMovementValue: 10,
-      append:'',
+      minimumPriceMovementValue: 10
     }
     this.setTotal = this.setTotal.bind(this);
     this.setStopLoss = this.setStopLoss.bind(this);
@@ -51,16 +51,21 @@ export class Cal extends React.Component {
     this.setLossValue = this.setLossValue.bind(this);
     this.setStrikePrice = this.setStrikePrice.bind(this);
     this.calculation = this.calculation.bind(this);
-    this.hanldeTableData = this.hanldeTableData.bind(this)
+    this.getTime = this.getTime.bind(this);
+    this.handleSetValue = this.handleSetValue.bind(this);
+    this.getId = this.getId.bind(this);
+    this.removeData = this.removeData.bind(this);
   }
   
   //通过fill.js 传输产品，单笔价值量，止损止盈和单笔亏损
   setTotal(e) {
-    this.setState({totalValue: e})
+    this.setState({totalValue: e});
+    
   };
 
   setLossValue(e) {
     this.setState({stopLossValue: e})
+    
   };
 
   setProducts(e) {
@@ -68,15 +73,21 @@ export class Cal extends React.Component {
       futuresProducts: e, 
       minimumPriceMovementValue: minimumPriceMovement[e]
     })
+
+    
   };
 
   setStopLoss(e) {
     this.setState({stopLostPrice: e})
+   
   };
 
   setStrikePrice(e) {
     this.setState({strikePrice: e})
+  
   };
+
+  
 
 
   //计算出最终下单的手数
@@ -85,8 +96,8 @@ export class Cal extends React.Component {
     let totalVolume = Math.floor(this.state.totalValue/(this.state.minimumPriceMovementValue * this.state.strikePrice));
     let lossvalue =  Math.abs(this.state.strikePrice - this.state.stopLostPrice);
     let lossVolume = Math.floor(this.state.stopLossValue / (lossvalue*this.state.minimumPriceMovementValue));
-
     return volume = totalVolume > lossVolume ? lossVolume : totalVolume
+    
   }
   
   //获取提交计算时的时间
@@ -95,41 +106,62 @@ export class Cal extends React.Component {
     let hour = date.getHours();
     let min = date.getMinutes();
     let sec = date.getSeconds();
+
     if (hour < 10) {
-      hour = `0${hour}`;
-    } else if (min < 10) {
-      min = `0${min}`;
-    } else if (sec < 10) {
-      sec = `0${sec}`;
-    }
+      hour = '0'+ hour;
+    } ;
+    if (min < 10) {
+      min = '0'+ min ;
+    } ;
+    if (sec < 10) {
+      sec = '0'+ sec ;
+    };
 
     return `${hour}:${min}:${sec}`
   }
-  
-  //点击提交时渲染结果数据，采用了push方法给数组arry增加数据的方式。
-  hanldeTableData() {
-    if (this.state.futuresProducts != '' && this.state.strikePrice != '' && this.state.stopLostPrice != '') {
-    this.tableData.unshift(<TableData time={this.getTime()} products={this.state.futuresProducts} volume={this.calculation()} strikePrice={this.state.strikePrice} stopLossPrice={this.state.stopLostPrice}/>);
-    this.setState({append: this.tableData})
-    } else if (this.state.futuresProducts === ''){
-      alert('请填写期货品种')
-    } else if (this.state.strikePrice === '') {
-      alert('请填写进场位')
-    } else if (this.state.stopLostPrice === '') {
-      alert('请填写止损价')
-    }
+
+  getId() {
+    //通过utc时间设定一个唯一的id
+    let id = Date.now();
+    return id
   }
 
+  handleSetValue(){
+    //获取当前数据组
+    let objset;
+    objset = this.state.setValue
+
+
+    if (this.state.futuresProducts !== '' && this.state.stopLostPrice !== '' && this.state.strikePrice !== '') {
+    let obj1 = {
+          time: this.getTime(),
+          futuresProducts: this.state.futuresProducts,
+          strikePrice: this.state.strikePrice,
+          stopLostPrice: this.state.stopLostPrice,
+          volume: this.calculation(),
+          id: this.getId()
+    }
+    
+    objset.push(obj1)
+    //通过push增加新数组，设置state
+    this.setState({setValue: objset})
+  } else {
+    alert('数据填写不完整，请检查数据')
+  }
+  }
+   
+  //点击结果列表中的减号可以删去数据结果
+  removeData(removedata) {
+    let data = this.state.setValue;
+    data = data.filter(currentData => currentData.id !== removedata.id)
+    this.setState({setValue: data})
+  }
 
   render(){
     return(
       <div>
-        <Fill  total={this.setTotal} loss={this.setLossValue} products={this.setProducts} stopLoss={this.setStopLoss} strikePrice={this.setStrikePrice} />
-        <input  type="submit" className="button" onClick={this.hanldeTableData}  value="提交" />
-        <Table />
-        <div>
-        {this.tableData}
-        </div>
+        <Fill  total={this.setTotal} loss={this.setLossValue} products={this.setProducts} stopLoss={this.setStopLoss} strikePrice={this.setStrikePrice} onclick={this.handleSetValue}/>
+        <Table  data={this.state.setValue} removeData={this.removeData} />
       </div>
     )
   }

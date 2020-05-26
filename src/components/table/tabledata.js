@@ -1,24 +1,29 @@
 import React from 'react';
 import './tabledata.css';
-import { Table } from './table';
 
 export class TableData extends React.Component {
+  constructor(props) {
+    super(props);
+    this.removeData = this.removeData.bind(this)
+  }
+
+
+  removeData() {
+    this.props.removeData(this.props.data);
+  }
+
+
   render() {
-
-
     return (
-      <table>
-        <tbody>
         <tr>
-          <td>{this.props.time}</td>
-          <td>{this.props.products}</td>
-          <td>{this.props.volume}</td>
-          <td>{this.props.strikePrice}</td>
-          <td>{this.props.stopLossPrice}</td>
+          <td>{this.props.data.time}</td>
+          <td>{this.props.data.futuresProducts}</td>
+          <td>{this.props.data.volume}</td>
+          <td>{this.props.data.strikePrice}</td>
+          <td>{this.props.data.stopLostPrice}</td>
+          <td><button onClick={this.removeData}>-</button></td>
         </tr>
-        </tbody>
-      </table>
     )
-
   }
 }
+

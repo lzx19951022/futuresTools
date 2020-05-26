@@ -40,26 +40,31 @@ export class Fill extends React.Component {
   render() {
   return (
     <div>
-      <div>
-      <label for='totalValue'>单笔价值量: </label>
-      <input type='text' id='totalValue' onChange={this.setTotal} value='200000'/> 
-      </div>
-      <div>
-      <label for='stopLossValue'>单笔止损金额:  </label>
-      <input type='text' id='stopLossValue' onChange={this.setLossValue} value='1000'/> 
-      </div>
-      <div>
+      <div className='container' id='container1'>
         <div>
-          <label for='futuresProducts'>品种（无需输入合约号，英文请全部小写）: </label>
-          <input type='text' id='futuresProducts' onChange={this.setProducts} /> 
+          <label for='totalValue'>单笔价值量: </label>
+          <input type='text' id='totalValue' onChange={this.setTotal} value='200000'/> 
         </div>
         <div>
-          <label for='takeProfitPrice' >进场价: </label>
-          <input type='text' id='takeProfitPrice' onChange={this.setStrikePrice} /> 
+          <label for='stopLossValue'>单笔止损金额:  </label>
+          <input type='text' id='stopLossValue' onChange={this.setLossValue} value='1000'/> 
         </div>
-        <div>
-          <label for='stopLossPrice'>止损价格: </label>
-          <input type='text' id='stopLossPrice' onChange={this.setStopLoss} /> 
+      </div>
+      <div >
+        <div className='container' id='container2'>
+          <div>
+            <label for='futuresProducts'>品种: </label>
+            <input type='text' id='futuresProducts' onChange={this.setProducts} /> 
+          </div>
+          <div>
+            <label for='takeProfitPrice' >进场价: </label>
+            <input type='text' id='takeProfitPrice' onChange={this.setStrikePrice} /> 
+          </div>
+          <div>
+            <label for='stopLossPrice'>止损价格: </label>
+            <input type='text' id='stopLossPrice' onChange={this.setStopLoss} /> 
+          </div>
+          <input  type="submit" className="button" onClick={this.props.onclick}  value="提交2" />
         </div>
       </div>
     </div>

@@ -1,4 +1,14 @@
 .head{
   width: 100%;
   text-align: center;
+  background-color: bisque;
+  font-size: 2em;
+}
+
+#totalValue,
+#stopLossValue,
+#futuresProducts,
+#takeProfitPrice,
+#stopLossPrice {
+width: 60px;
 }

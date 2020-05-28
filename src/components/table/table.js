@@ -5,6 +5,7 @@ import { TableData } from './tabledata';
 export class Table extends React.Component {
   render() {
   return (
+    <div className='table'>
     <table>
       <thead>
       <tr>
@@ -18,10 +19,11 @@ export class Table extends React.Component {
       </thead>
       <tbody>
         {this.props.data.map(data => {
-          return <TableData data={data} id={data.id} removeData={this.props.removeData}/>
+          return <TableData data={data} id={data.id} removeData={this.props.removeData} key={data.id}/>
         })}
       </tbody>
     </table>
+    </div>
   )
   }
 }

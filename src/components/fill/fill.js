@@ -42,29 +42,31 @@ export class Fill extends React.Component {
     <div>
       <div className='container' id='container1'>
         <div>
-          <label for='totalValue'>单笔价值量: </label>
-          <input type='text' id='totalValue' onChange={this.setTotal} value='200000'/> 
+          <label htmlFor='totalValue'>单笔价值量: </label>
+          <input type='text' id='totalValue' onChange={this.setTotal} defaultValue='200000'/> 
         </div>
         <div>
-          <label for='stopLossValue'>单笔止损金额:  </label>
-          <input type='text' id='stopLossValue' onChange={this.setLossValue} value='1000'/> 
+          <label htmlFor='stopLossValue'>单笔止损金额:  </label>
+          <input type='text' id='stopLossValue' onChange={this.setLossValue} defaultValue='1000'/> 
         </div>
       </div>
       <div >
         <div className='container' id='container2'>
-          <div>
-            <label for='futuresProducts'>品种: </label>
+          <div className='container2Item'>
+            <label htmlFor='futuresProducts'>品种: </label>
             <input type='text' id='futuresProducts' onChange={this.setProducts} /> 
           </div>
-          <div>
-            <label for='takeProfitPrice' >进场价: </label>
+          <div className='container2Item'>
+            <label htmlFor='takeProfitPrice' >进场价: </label>
             <input type='text' id='takeProfitPrice' onChange={this.setStrikePrice} /> 
           </div>
-          <div>
-            <label for='stopLossPrice'>止损价格: </label>
+          <div className='container2Item'>
+            <label htmlFor='stopLossPrice'>止损价格: </label>
             <input type='text' id='stopLossPrice' onChange={this.setStopLoss} /> 
           </div>
+          <div className='container2Item'>
           <input  type="submit" className="button" onClick={this.props.onclick}  value="提交2" />
+          </div>
         </div>
       </div>
     </div>

@@ -1,9 +1,7 @@
 import React from 'react';
-import logo from '../../logo.svg';
 import './App.css';
-import { Head } from '../head/head'
-import { Fill } from '../fill/fill'
-import { Cal  } from '../cal/cal'
+import { Head } from '../head/head';
+import { Cal  } from '../cal/cal';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,7 +14,7 @@ class App extends React.Component {
     return(
       <div>
         <Head />
-        <Cal />
+          <Cal />
       </div>
     )
   }

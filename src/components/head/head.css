@@ -1,8 +1,12 @@
 .head{
-  width: 100%;
+  position: relative;
+  top:5px;
+  max-width: 20%;
   text-align: center;
-  background-color: bisque;
   font-size: 2em;
+  background-color: bisque;
+  margin: auto;
+  border-radius: 10px;
 }
 
 #totalValue,

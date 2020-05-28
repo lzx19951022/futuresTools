@@ -2,7 +2,8 @@ import React from 'react';
 import './cal.css';
 import { Fill } from '../fill/fill';
 import { Table } from '../table/table';
-import { TableData } from '../table/tabledata'
+
+
 
 //各个产品单手的吨数
 const minimumPriceMovement = {
@@ -33,9 +34,9 @@ const minimumPriceMovement = {
 }
 
 export class Cal extends React.Component {
+
   constructor(props) {
     super(props);
-    this.tableData = [];
     this.state = {
       setValue:[],
       totalValue: 200000,
@@ -87,17 +88,16 @@ export class Cal extends React.Component {
   
   };
 
-  
+
 
 
   //计算出最终下单的手数
   calculation() {
-    let volume;
+ 
     let totalVolume = Math.floor(this.state.totalValue/(this.state.minimumPriceMovementValue * this.state.strikePrice));
     let lossvalue =  Math.abs(this.state.strikePrice - this.state.stopLostPrice);
     let lossVolume = Math.floor(this.state.stopLossValue / (lossvalue*this.state.minimumPriceMovementValue));
-    return volume = totalVolume > lossVolume ? lossVolume : totalVolume
-    
+    return totalVolume > lossVolume ? lossVolume : totalVolume
   }
   
   //获取提交计算时的时间
@@ -129,8 +129,7 @@ export class Cal extends React.Component {
   handleSetValue(){
     //获取当前数据组
     let objset;
-    objset = this.state.setValue
-
+    objset = this.state.setValue;
 
     if (this.state.futuresProducts !== '' && this.state.stopLostPrice !== '' && this.state.strikePrice !== '') {
     let obj1 = {
@@ -142,10 +141,12 @@ export class Cal extends React.Component {
           id: this.getId()
     }
     
-    objset.push(obj1)
+    objset.unshift(obj1);
     //通过push增加新数组，设置state
     this.setState({setValue: objset})
-  } else {
+
+
+    } else {
     alert('数据填写不完整，请检查数据')
   }
   }

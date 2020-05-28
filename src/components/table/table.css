@@ -23,3 +23,13 @@ table
         {
             background: #F5FAFA;
         }
+.table{
+    width: 500px;
+    min-height: 800px;
+    position: relative;
+    margin: auto;
+    padding: 80px 50px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 30px;
+
+}

@@ -43,11 +43,11 @@ export class Fill extends React.Component {
       <div className='container' id='container1'>
         <div>
           <label htmlFor='totalValue'>单笔价值量: </label>
-          <input type='text' id='totalValue' onChange={this.setTotal} defaultValue='200000'/> 
+          <input type='text' id='totalValue' onChange={this.setTotal} defaultValue={this.props.totalValue} /> 
         </div>
         <div>
           <label htmlFor='stopLossValue'>单笔止损金额:  </label>
-          <input type='text' id='stopLossValue' onChange={this.setLossValue} defaultValue='1000'/> 
+          <input type='text' id='stopLossValue' onChange={this.setLossValue} defaultValue={this.props.lossValue}/> 
         </div>
       </div>
       <div >
@@ -73,3 +73,4 @@ export class Fill extends React.Component {
   )
   }
 }
+

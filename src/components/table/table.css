@@ -1,35 +1,52 @@
 table
         {
             border-collapse: collapse;
-            margin: 0 auto;
             text-align: center;
+            font-size: 1.1em;
         }
         table td, table th
         {
-            border: 1px solid #cad9ea;
+            border: none;
             color: #666;
-            height: 30px;
+            height: 50px;
+            line-height: 50px;
         }
         table thead th
         {
             background-color: #CCE8EB;
-            width: 100px;
+            width: 400px;
+            text-align: center;
+            vertical-align: center;
+            font-weight: 600;
         }
         table tr:nth-child(odd)
         {
             background: #fff;
+            vertical-align: center;
+            font-weight: 500;
         }
         table tr:nth-child(even)
         {
             background: #F5FAFA;
+            text-align: center;
+            vertical-align: center;
+            font-weight: 500;
         }
 .table{
-    width: 500px;
-    min-height: 800px;
-    position: relative;
     margin: auto;
-    padding: 80px 50px;
+    width: 95%;
+    min-height: 800px;
+    top: -15px;
+    position: relative;
+    padding: 150px 0px;
     background-color: rgb(255, 255, 255);
     border-radius: 30px;
 
+}
+
+@media only screen and (max-resolution : 100dpi) and (min-width : 1081px) {
+    .table{
+        width: 45%;
+        top: 0px;
+    }
 }

@@ -71,3 +71,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@media only screen and (mix-width : 1080px) {
+  .table{
+      width: 100%;
+  }
+}
+
+@media only screen and (mix-width: 1080px) and (min-resolution: 250dpi ) {
+  div {
+    font-size: 18px;
+  }
+}

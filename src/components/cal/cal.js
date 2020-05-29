@@ -112,6 +112,8 @@ export class Cal extends React.Component {
     let hour = date.getHours();
     let min = date.getMinutes();
     let sec = date.getSeconds();
+    let month = (date.getMonth() + 1);
+    let day = date.getDate()
     
     //时间个位数时前面补0
     if (hour < 10) {
@@ -122,6 +124,12 @@ export class Cal extends React.Component {
     } ;
     if (sec < 10) {
       sec = '0'+ sec ;
+    };
+    if (month < 10) {
+      month = '0'+ month ;
+    };
+    if (day < 10) {
+      day = '0'+ day ;
     };
 
     return `${hour}:${min}:${sec}`

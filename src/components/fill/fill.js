@@ -64,8 +64,8 @@ export class Fill extends React.Component {
             <label htmlFor='stopLossPrice'>止损价格: </label>
             <input type='text' id='stopLossPrice' onChange={this.setStopLoss} /> 
           </div>
-          <div className='container2Item'>
-          <input  type="submit" className="button" onClick={this.props.onclick}  value="提交2" />
+          <div className='container2Item2'>
+          <input  type="submit" className="button" onClick={this.props.onclick}  value="计算" />
           </div>
         </div>
       </div>

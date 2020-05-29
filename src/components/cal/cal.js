@@ -43,7 +43,7 @@ export class Cal extends React.Component {
       futuresProducts:'',
       strikePrice: '',
       stopLostPrice: '',
-      minimumPriceMovementValue: 10,
+      minimumPriceMovementValue: '',
       defaultTotalValue: '',
     }
     this.setTotal = this.setTotal.bind(this);
@@ -79,9 +79,11 @@ export class Cal extends React.Component {
   };
 
   setProducts(e) {
+    //解决大小写输入失误问题
+    let le = e.toLowerCase();
     this.setState({
-      futuresProducts: e, 
-      minimumPriceMovementValue: minimumPriceMovement[e]
+      futuresProducts: le, 
+      minimumPriceMovementValue: minimumPriceMovement[le]
     })
 
     
@@ -145,7 +147,9 @@ export class Cal extends React.Component {
     //获取当前数据组
     let objset;
     objset = this.state.setValue;
-    if (this.state.futuresProducts !== '' && this.state.stopLostPrice !== '' && this.state.strikePrice !== '') {
+    if(this.state.minimumPriceMovementValue === '' || this.state.minimumPriceMovementValue === undefined){
+      alert('未匹配到期货品种，期货品种无需合约号且英文品种不区分大小写，如品种输入无误，则数据库当前无该品种')
+    }else if (this.state.futuresProducts !== '' && this.state.stopLostPrice !== '' && this.state.strikePrice !== '') {
     let obj1 = {
           time: this.getTime(),
           futuresProducts: this.state.futuresProducts,

@@ -2,7 +2,7 @@ import React from 'react';
 import './cal.css';
 import { Fill } from '../fill/fill';
 import { Table } from '../table/table';
-
+import { Introduction } from '../introduction/introduction'
 
 
 //各个产品单手的吨数
@@ -45,6 +45,7 @@ export class Cal extends React.Component {
       stopLostPrice: '',
       minimumPriceMovementValue: '',
       defaultTotalValue: '',
+      firstTime: ''
     }
     this.setTotal = this.setTotal.bind(this);
     this.setStopLoss = this.setStopLoss.bind(this);
@@ -56,7 +57,8 @@ export class Cal extends React.Component {
     this.handleSetValue = this.handleSetValue.bind(this);
     this.getId = this.getId.bind(this);
     this.removeData = this.removeData.bind(this);
-    this.handleLoad = this.handleLoad.bind(this)
+    this.handleLoad = this.handleLoad.bind(this);
+    this.handleIntroduction = this.handleIntroduction.bind(this);
   }
 
   componentDidMount() {
@@ -181,6 +183,10 @@ export class Cal extends React.Component {
 
   //在页面加载完成时判断本地存储数据是否存在，存在的话加载本地的存储数据
   handleLoad() {
+    if (localStorage.getItem('firstTime')) {
+      let firstTime = localStorage.getItem('firstTime')
+      this.setState({firstTime: firstTime})
+    }
     //恢复表格数据
     if (localStorage.getItem('storage')) {
       let storage = localStorage.getItem('storage')
@@ -199,11 +205,18 @@ export class Cal extends React.Component {
       this.setState({stopLossValue: lossValue})
 
     }
+
+    
   }
   
-  //删除表格中的历史记录
+  //删除表格中的历史记录未完成
   clearTableStorage() {
     localStorage.removeItem('myCat');
+  }
+
+  handleIntroduction() {
+    this.setState({firstTime: '1.0.0'})
+    localStorage.setItem('firstTime', '1.0.0')
   }
 
   render(){
@@ -213,6 +226,7 @@ export class Cal extends React.Component {
         onclick={this.handleSetValue} clearStorage={this.clearStorage} totalValue={this.state.totalValue} lossValue={this.state.stopLossValue}
         />
         <Table  data={this.state.setValue} removeData={this.removeData} />
+        <Introduction firstTime={this.state.firstTime} introduction={this.handleIntroduction}/>
       </div>
     )
   }

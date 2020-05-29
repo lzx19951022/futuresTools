@@ -1,0 +1,36 @@
+.introduction {
+  position: relative;
+  margin-top: 10px;
+  padding: auto;
+  text-align: center;
+  z-index: 1;
+  line-height: 30px;
+  color: antiquewhite;
+  width:91% ;
+  font-size: 1.5em;
+}
+
+#bgc{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(22, 22, 22, 0.734);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: inline-flex;
+  justify-content: center;
+}
+
+p {
+  font-size: 18px !important;
+  text-align: left !important;
+}
+
+@media only screen and (min-width: 1081px) {
+  .introduction {
+    width: 70%;
+  }
+}

@@ -5,6 +5,8 @@ import { Table } from '../table/table';
 import { Introduction } from '../introduction/introduction'
 
 
+const version = '0.1.2';
+
 //各个产品单手的吨数
 const minimumPriceMovement = {
   螺纹: 10,
@@ -183,9 +185,12 @@ export class Cal extends React.Component {
 
   //在页面加载完成时判断本地存储数据是否存在，存在的话加载本地的存储数据
   handleLoad() {
-    if (localStorage.getItem('firstTime')) {
+    //判断一个本地缓存用户之前是否打开过页面
+    if (localStorage.getItem('firstTime') === version) {
       let firstTime = localStorage.getItem('firstTime')
       this.setState({firstTime: firstTime})
+    } else {
+      this.setState({firstTime: true})
     }
     //恢复表格数据
     if (localStorage.getItem('storage')) {
@@ -215,8 +220,8 @@ export class Cal extends React.Component {
   }
 
   handleIntroduction() {
-    this.setState({firstTime: '1.0.0'})
-    localStorage.setItem('firstTime', '1.0.0')
+    this.setState({firstTime: version})
+    localStorage.setItem('firstTime', version)
   }
 
   render(){

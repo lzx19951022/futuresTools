@@ -4,7 +4,7 @@ import './introduction.css'
 export class Introduction extends React.Component {
   render() {
 
-    if (this.props.firstTime !== '1.0.0') {
+    if (this.props.firstTime === true) {
     return(
       <div id='bgc'>
         <div className='introduction'>
